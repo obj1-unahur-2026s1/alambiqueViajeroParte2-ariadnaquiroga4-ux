@@ -27,6 +27,7 @@ object alambiqueVeloz {
     }
     method rapido() = rapido
     method patenteValida() = patente.head() == "A"
+    method tiempoHasta(ciudad) = null
 }
 
 object paris{
@@ -55,14 +56,16 @@ object lasVegas{
 }
 
 object antigualla {
-    var gangsters = 7
-    method puedeFuncionar() = gangsters.even()
-    method rapido() = gangsters > 6
+    var cantGangsters = 7
+    const gangsters = ["tom","sam","joe","frank","vinnie","lucky","tony"]
+    method puedeFuncionar() = cantGangsters.even()
+    method rapido() = cantGangsters > 6
     method desgaste(){
-        gangsters = gangsters -1
+        cantGangsters = cantGangsters -1
     }
     method patenteValida() = chatarra.rapido() 
-
+    method tiempoHasta(ciudad) = 0
+    method velocidad() = gangsters.sum({g => g.size()})
 }
 object chatarra {
     var cañones = 10
@@ -76,11 +79,12 @@ object chatarra {
     }
     method patenteValida() = municiones.take(4) == "ACME" 
     method cañones() = cañones
-
+    method tiempoHasta(ciudad) = null
 }
 
 object convertible{
-    var convertido = antigualla
+    const vehiculos = [chatarra,alambiqueVeloz,antigualla]
+    var convertido = chatarra
     method puedeFuncionar() = convertido.puedeFuncionar() 
     method rapido() = convertido.rapido()
     method desgaste(){
@@ -90,7 +94,7 @@ object convertible{
         convertido = vehiculo
     }
     method patenteValida() = convertido.patenteValida()
- 
+    method tiempoHasta(ciudad) = null
 }
 
 object hurlingham{
@@ -105,4 +109,14 @@ object moto{
     method puedeFuncionar() = not moto.rapido()
     method desgaste() { }
     method patenteValida() = false
+    method tiempoHasta(ciudad) = null
+}
+
+object vehiculoManejadoPorPierre{
+    var tiempoBase = 20
+    method rapido() = true
+    method puedeFuncionar() = not self.rapido()
+    method desgaste() { }
+    method patenteValida() = false
+    method tiempoHasta(ciudad) = tiempoBase * 2
 }

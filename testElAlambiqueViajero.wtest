@@ -1,4 +1,5 @@
 import elAlambiqueViajero.*
+import inscripcion.*
 test "luke cuenta cuando va de viaje"{
     luke.viajar(paris)
     assert.equals(1, luke.cantidadViajes())
@@ -62,3 +63,22 @@ test "luke viaja a hurlingham en el convertible convertido en chatarra" {
   assert.equals(5,chatarra.cañones())
 
   }
+
+test "vehiculo rechazado" {
+    centroInscrpcion.cambiarCiudad(paris)
+    assert.that(centroInscrpcion.rechazados.contains(vehiculoManejadoPorPierre))
+}
+
+test "cambiar ciudad" {
+    centroInscrpcion.puedeCompetir(alambiqueVeloz)
+    centroInscrpcion.cambiarCiudad(buenosAires)
+    assert.that(centroInscrpcion.inscriptos.contains(alambiqueVeloz))
+}
+
+test "ganador de la carrera" {
+    centroInscrpcion.puedeCompetir(moto)
+    centroInscrpcion.puedeCompetir(chatarra)
+    moto.tiempoHasta(buenosAires) =  10
+    chatarra.tiempoHasta(buenosAires) = 15
+    assert.equals(chatarra, centroInscrpcion.ganador())
+}
